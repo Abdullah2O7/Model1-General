@@ -1,5 +1,4 @@
 from flask import Flask, request
-
 import numpy as np
 import pickle
 

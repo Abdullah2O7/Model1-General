@@ -1,13 +1,13 @@
-from flask import Flask, jsonify,request
+import flask
 import numpy as np
 import pickle
-app = Flask(__name__)
+app = flask.Flask(__name__)
 model1 = pickle.load(open('best_rf_model.pkl', 'rb'))
 model2 = pickle.load(open('best_model.pkl', 'rb'))
 @app.route('/generalPredict', methods=['POST'])
 
 def model1Api():
-    data=request.get_json()
+    data=flask.request.get_json()
     listOfDics=data["data"]
     answers=[]
     counter=0
@@ -17,14 +17,14 @@ def model1Api():
             answers.append(dictionary["answer"])
             counter+=1
     if counter!=features:
-        return jsonify("You didn't answer all the questions! Try again.")
+        return flask.jsonify("You didn't answer all the questions! Try again.")
     answers=np.array(answers)
     prediction=model1.Find_disorder(answers) #make the prediction
-    return jsonify({"prediction: ",prediction})
+    return flask.jsonify({"prediction: ",prediction})
 
 @app.route('/depressionPredict', methods=['POST'])
 def model2Api():
-    data=request.get_json()
+    data=flask.request.get_json()
     dicsList=data['data']
     answers=[]
     num_of_ans=0
@@ -35,9 +35,9 @@ def model2Api():
            num_of_ans+=1
 
     if num_of_ans!=features:
-        return jsonify("You didn't answer all the questions! Try again.")
+        return flask.jsonify("You didn't answer all the questions! Try again.")
     answers=np.array(answers)
     prediction=model2.find_disorder(answers)
-    return jsonify({"prediction: ",prediction})
+    return flask.jsonify({"prediction: ",prediction})
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001,debug=True)

@@ -4,8 +4,8 @@ import pickle
 
 
 app = Flask(__name__)
-model2 = pickle.load(open('best_rf_model.pkl', 'rb'))
-model1 = pickle.load(open('best_model.pkl', 'rb'))
+predictor2 = DisorderPredictor('best_rf_model.pkl')
+predictor1=DisorderPredictor('best_model.pkl')
 
 
 @app.route('/generalPredict', methods=['POST'])
@@ -22,7 +22,7 @@ def model1Api():
     if counter != features:
         return jsonify("You didn't answer all the questions! Try again.")
     answers = np.array(answers)
-    prediction = model1.Find_disorder(answers)  # make the prediction
+    prediction = predictor1.find_disorder(answers)  # make the prediction
     return jsonify({"prediction: ", prediction})
 
 
@@ -41,8 +41,8 @@ def model2Api():
     if num_of_ans != features:
         return jsonify("You didn't answer all the questions! Try again.")
     answers = np.array(answers)
-    prediction = model2.find_disorder(answers)
-    return jsonify({"prediction: ", prediction})
+    result = predictor2.predict_disorder(answers)
+    return jsonify({"prediction: ", result})
 
 
 if __name__ == '__main__':

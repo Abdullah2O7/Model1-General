@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import numpy as np
 import pickle
-
+from Model1 import DisorderPredictor
+from Model2 import DisorderPredictor
 
 app = Flask(__name__)
 predictor2 = DisorderPredictor('best_rf_model.pkl')

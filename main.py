@@ -4,8 +4,8 @@ import pickle
 
 
 app = Flask(__name__)
-model1 = pickle.load(open('best_rf_model.pkl', 'rb'))
-model2 = pickle.load(open('best_model.pkl', 'rb'))
+model2 = pickle.load(open('best_rf_model.pkl', 'rb'))
+model1 = pickle.load(open('best_model.pkl', 'rb'))
 
 
 @app.route('/generalPredict', methods=['POST'])
@@ -14,7 +14,7 @@ def model1Api():
     listOfDics = data["data"]
     answers = []
     counter = 0
-    features = 10
+    features = 27
     for dictionary in listOfDics:
         if "answer" in dictionary:
             answers.append(dictionary["answer"])
@@ -32,7 +32,7 @@ def model2Api():
     dicsList = data['data']
     answers = []
     num_of_ans = 0
-    features = 27
+    features = 10
     for dictionary in dicsList:
         if 'answer' in dictionary:
             answers.append(dictionary['answer'])

@@ -141,7 +141,7 @@ def model1Api():
         return jsonify("You didn't answer all the questions! Try again.")
     answers = np.array(answers)
     prediction = Find_disorder(answers)  # make the prediction
-    return jsonify({"prediction": prediction})
+    return jsonify({prediction})
 
 
 
@@ -161,7 +161,7 @@ def model2Api():
         return jsonify("You didn't answer all the questions! Try again.")
     answers = np.array(answers)
     result = find_disorder(answers)
-    return jsonify({"prediction": result})
+    return jsonify({result})
 
 
 if __name__ == '__main__':
